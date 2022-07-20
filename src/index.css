@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#root{
+  @apply h-[100vh] font-Poppins
+}
+
+.App{
+  @apply bg-[#f8f8ff] px-11 py-5 w-full h-[100%] flex 
+}
