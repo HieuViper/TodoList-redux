@@ -5,7 +5,7 @@ const PageTitle = () => {
   return (
     <motion.p animate={{y: -100}} className=' my-auto font-bold text-[60px] bg-gradient-to-r bg-clip-text text-transparent 
     from-indigo-500 via-purple-500 to-indigo-500
-    animate-text uppercase text-center' 
+    animate-text uppercase text-center select-none' 
     >
       ToDo List
     </motion.p>
