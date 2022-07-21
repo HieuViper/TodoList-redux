@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { searchFilterChange, updateFilterStatus } from '../slices/todoSlice'
+import { searchFilterChange, updateFilterPriority, updateFilterStatus } from '../slices/todoSlice'
 import TodoModal from './TodoModal'
 import { motion } from 'framer-motion'
 
@@ -8,15 +8,22 @@ const AppHeader = () => {
   const dispatch = useDispatch()
   const [modalOpen, setModalOpen] = useState(false)
   const initialFilterStatusValue = useSelector(state => state.todo.filterStatus)
+  const initialFilterPriorityValue = useSelector(state => state.todo.priority)
   const [filterStatus, setFilterStatus] = useState(initialFilterStatusValue);
+  const [filterPriority, setFilterPriority] = useState(initialFilterPriorityValue);
   const [searchText, setSearchText] = useState('')
   const item = {
     hidden: { opacity: 0 },
     appear: { opacity: 1 }
   }
-  const handleFilter = (e) => {
+  const handleStatusFilterChange = (e) => {
     setFilterStatus(e.target.value)
     dispatch(updateFilterStatus(e.target.value))
+  }
+
+  const handlePriorityFilterChange = (e) => {
+    setFilterPriority(e.target.value)
+    dispatch(updateFilterPriority(e.target.value))
   }
 
   const handleSearchFilterChange = (e) => {
@@ -40,15 +47,22 @@ const AppHeader = () => {
         <input type="text"
           name="searchTask"
           id=""
-          className='bg-gray-100 w-[50%] h-[46px] p-3 rounded-lg outline-neutral-400 hover:border-[1px] hover:border-neutral-400 transition-all duration-300'
+          className='bg-gray-100 w-[30%] h-[46px] p-3 rounded-lg outline-neutral-400 hover:border-[1px] hover:border-neutral-400 transition-all duration-300'
           placeholder='Search...'
           value={searchText}
           onChange={handleSearchFilterChange} />
+        <select 
+          className='transition-all duration-300 bg-[#A770EF] rounded-md outline-none text-white font-semibold p-3 cursor-pointer hover:opacity-80'
+          value={filterPriority}
+          onChange={handlePriorityFilterChange}>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+        </select>
         <select
-          id="countries"
-          onChange={handleFilter}
-          className="transition-all duration-300 bg-[#A770EF] rounded-md outline-none text-white font-semibold p-3 cursor-pointer hover:opacity-80"
+          className="transition-all duration-300 bg-[#A770EF] rounded-md outline-none text-white font-semibold p-3 cursor-pointer hover:opacity-80 "
           value={filterStatus}
+          onChange={handleStatusFilterChange}
         >
           <option className='hover:bg-black' value="all">All</option>
           <option value="incomplete">Incomplete</option>

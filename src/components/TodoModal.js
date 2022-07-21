@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 
 const dropIn = {
   hidden: {
-    y: "-100vh",
+    y: "-60vh",
     opacity: 0,
   },
   visible: {
@@ -29,6 +29,7 @@ const dropIn = {
 const ToDoModal = ({ modalOpen, setModalOpen, type, todo }) => {
   const [title, setTitle] = useState('')
   const [status, setStatus] = useState('incomplete')
+  const [priority, setPriority] = useState('High')
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -55,18 +56,20 @@ const ToDoModal = ({ modalOpen, setModalOpen, type, todo }) => {
             id: uuid(),
             title,
             status,
+            priority,
             time: new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true, year: 'numeric', month: 'numeric', day: 'numeric' })
           })
         )
         toast.success('Task Added Successfully !!!')
       }
       if (type === 'update') {
-        if (todo.title !== title || todo.status !== status) {
+        if (todo.title !== title || todo.status !== status || todo.priority !== priority) {
           dispatch(
             updateTodo({
               ...todo,
               title,
-              status
+              status,
+              priority
             })
           )
           toast.success('Task Updated Successfully !!!')
@@ -125,6 +128,16 @@ const ToDoModal = ({ modalOpen, setModalOpen, type, todo }) => {
                     <select className='p-3 w-full mt-2 rounded-md' name="" id="status" defaultValue="incomplete" value={status} onChange={(e) => setStatus(e.target.value)}>
                       <option value="incomplete">Incomplete</option>
                       <option value="complete">Complete</option>
+                    </select>
+                  </div>
+                  <div className="">
+                    <label className='text-[#646681] block' htmlFor="priorities">
+                      Priority
+                    </label>
+                    <select className='p-3 w-full mt-2 rounded-md' name="" id="priorities" defaultValue="High" value={priority} onChange={(e) => setPriority(e.target.value)}>
+                      <option value="High">High</option>
+                      <option value="Medium">Medium</option>
+                      <option value="Low">Low</option>
                     </select>
                   </div>
                 </div>

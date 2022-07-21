@@ -27,13 +27,15 @@ const AppContent = () => {
   const sortedTodoList = [...todoList]
   const filterStatus = useSelector(state => state.todo.filterStatus)
   const searchTodo = useSelector(state => state.todo.searchTodo)
+  const filterPriority = useSelector(state => state.todo.priority)
   sortedTodoList.sort((a, b) => new Date(b.time) - new Date(a.time))
 
   const filteredTodoList = sortedTodoList.filter((item) => {
     if (filterStatus === 'all') {
-      return true && item.title.includes(searchTodo)
+      return filterPriority.length ? 
+        true && item.title.includes(searchTodo) && item.priority.includes(filterPriority) : true && item.title.includes(searchTodo) 
     }
-    return item.status === filterStatus && item.title.includes(searchTodo)
+    return item.status === filterStatus && item.title.includes(searchTodo) && item.priority.includes(filterPriority)
   })
 
   return (
