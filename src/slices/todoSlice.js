@@ -12,7 +12,8 @@ const getInitialValue = () => {
 const initalValue = {
   todoList: getInitialValue(),
   filterStatus: 'all',
-  searchTodo:''
+  searchTodo:'',
+  priority:''
 }
 
 export const todoSlice = createSlice({
@@ -52,6 +53,7 @@ export const todoSlice = createSlice({
           if(todo.id === action.payload.id){
             todo.title = action.payload.title
             todo.status = action.payload.status
+            todo.priority = action.payload.priority
           }
         })
         window.localStorage.setItem('todoList', JSON.stringify(todoListArr))
@@ -61,11 +63,14 @@ export const todoSlice = createSlice({
     updateFilterStatus: (state, action) => {
       state.filterStatus = action.payload
     },
+    updateFilterPriority: (state, action) => {
+      state.priority = action.payload
+    },
     searchFilterChange: (state, action) => {
       state.searchTodo = action.payload
     }
   }
 })
 
-export const {addTodo , deleteTodo, updateTodo, updateFilterStatus, searchFilterChange} = todoSlice.actions
+export const {addTodo , deleteTodo, updateTodo, updateFilterStatus, updateFilterPriority, searchFilterChange} = todoSlice.actions
 export default todoSlice.reducer
