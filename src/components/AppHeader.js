@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateFilterStatus } from '../slices/todoSlice'
+import { searchFilterChange, updateFilterStatus } from '../slices/todoSlice'
 import TodoModal from './TodoModal'
 import { motion } from 'framer-motion'
 
@@ -9,6 +9,7 @@ const AppHeader = () => {
   const [modalOpen, setModalOpen] = useState(false)
   const initialFilterStatusValue = useSelector(state => state.todo.filterStatus)
   const [filterStatus, setFilterStatus] = useState(initialFilterStatusValue);
+  const [searchText, setSearchText] = useState('')
   const item = {
     hidden: { opacity: 0 },
     appear: { opacity: 1 }
@@ -16,6 +17,11 @@ const AppHeader = () => {
   const handleFilter = (e) => {
     setFilterStatus(e.target.value)
     dispatch(updateFilterStatus(e.target.value))
+  }
+
+  const handleSearchFilterChange = (e) => {
+    setSearchText(e.target.value)
+    dispatch(searchFilterChange(e.target.value))
   }
 
   return (
@@ -31,6 +37,13 @@ const AppHeader = () => {
         >
           Add Task
         </button>
+        <input type="text"
+          name="searchTask"
+          id=""
+          className='bg-gray-100 w-[50%] h-[46px] p-3 rounded-lg outline-neutral-400 hover:border-[1px] hover:border-neutral-400 transition-all duration-300'
+          placeholder='Search...'
+          value={searchText}
+          onChange={handleSearchFilterChange} />
         <select
           id="countries"
           onChange={handleFilter}

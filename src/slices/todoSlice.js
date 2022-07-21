@@ -11,7 +11,8 @@ const getInitialValue = () => {
 
 const initalValue = {
   todoList: getInitialValue(),
-  filterStatus: 'all'
+  filterStatus: 'all',
+  searchTodo:''
 }
 
 export const todoSlice = createSlice({
@@ -59,9 +60,12 @@ export const todoSlice = createSlice({
     },
     updateFilterStatus: (state, action) => {
       state.filterStatus = action.payload
+    },
+    searchFilterChange: (state, action) => {
+      state.searchTodo = action.payload
     }
   }
 })
 
-export const {addTodo , deleteTodo, updateTodo, updateFilterStatus} = todoSlice.actions
+export const {addTodo , deleteTodo, updateTodo, updateFilterStatus, searchFilterChange} = todoSlice.actions
 export default todoSlice.reducer
