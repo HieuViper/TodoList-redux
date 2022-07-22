@@ -31,6 +31,13 @@ const AppContent = () => {
   sortedTodoList.sort((a, b) => new Date(b.time) - new Date(a.time))
 
   const filteredTodoList = sortedTodoList.filter((item) => {
+    if (filterStatus === 'all' && filterPriority === 'All') {
+      return true 
+    }
+    if (filterPriority === 'All') {
+      return filterPriority.length ? 
+        true && item.title.includes(searchTodo) && item.status.includes(filterStatus) : true && item.title.includes(searchTodo) 
+    }
     if (filterStatus === 'all') {
       return filterPriority.length ? 
         true && item.title.includes(searchTodo) && item.priority.includes(filterPriority) : true && item.title.includes(searchTodo) 

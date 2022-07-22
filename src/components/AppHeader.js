@@ -51,23 +51,30 @@ const AppHeader = () => {
           placeholder='Search...'
           value={searchText}
           onChange={handleSearchFilterChange} />
-        <select 
-          className='transition-all duration-300 bg-[#A770EF] rounded-md outline-none text-white font-semibold p-3 cursor-pointer hover:opacity-80'
-          value={filterPriority}
-          onChange={handlePriorityFilterChange}>
-          <option value="High">High</option>
-          <option value="Medium">Medium</option>
-          <option value="Low">Low</option>
-        </select>
-        <select
-          className="transition-all duration-300 bg-[#A770EF] rounded-md outline-none text-white font-semibold p-3 cursor-pointer hover:opacity-80 "
-          value={filterStatus}
-          onChange={handleStatusFilterChange}
-        >
-          <option className='hover:bg-black' value="all">All</option>
-          <option value="incomplete">Incomplete</option>
-          <option value="complete">Complete</option>
-        </select>
+        <div className="">
+          <span className='pr-3 italic underline'>Priority:</span>
+          <select
+            className='transition-all duration-300 bg-[#A770EF] rounded-md outline-none text-white font-semibold p-3 cursor-pointer hover:opacity-80'
+            value={filterPriority}
+            onChange={handlePriorityFilterChange}>
+            <option value="All">All</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+          </select>
+        </div>
+        <div className="">
+          <span className='pr-3 italic underline'>Status:</span>
+          <select
+            className="transition-all duration-300 bg-[#A770EF] rounded-md outline-none text-white font-semibold p-3 cursor-pointer hover:opacity-80 "
+            value={filterStatus}
+            onChange={handleStatusFilterChange}
+          >
+            <option className='hover:bg-black' value="all">All</option>
+            <option value="incomplete">Incomplete</option>
+            <option value="complete">Complete</option>
+          </select>
+        </div>
       </motion.div>
       <TodoModal modalOpen={modalOpen} setModalOpen={setModalOpen} type='add' />
     </div>
